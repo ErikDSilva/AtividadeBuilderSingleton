@@ -1,6 +1,8 @@
 package com.mycompany.app;
 
-import com.mycompany.app.factorymethod.Admin;
+import com.mycompany.app.abstractfactory.EmailNotificationFactory;
+import com.mycompany.app.abstractfactory.Notification;
+import com.mycompany.app.abstractfactory.NotificationFactory;
 import com.mycompany.app.factorymethod.User;
 import com.mycompany.app.factorymethod.UserFactory;
 import com.mycompany.app.singleton.ConfigManager;
@@ -12,6 +14,7 @@ public class App {
     public static void main(String[] args) {
         
         // Singleton
+        System.out.println(">> Singleton <<");
         ConfigManager config1 = ConfigManager.getInstance();
         ConfigManager config2 = ConfigManager.getInstance();
 
@@ -21,7 +24,7 @@ public class App {
 
 
         // Factory Method
-        
+        System.out.println("\n\n>> Factory Method <<");
         User user1 = UserFactory.createUser("admin");
         user1.paint();
 
@@ -30,6 +33,15 @@ public class App {
 
         User user3 = UserFactory.createUser("viewer");
         user3.paint();
+
+        // Abstract Factory
+        System.out.println("\n\n>> Abstract Factory <<");
+
+        NotificationFactory emailFactory = new EmailNotificationFactory();
+        Notification email = emailFactory.criarNotificacao();
+
+        email.enviar("Mensagem enviada com sucesso!");
+        
 
     }
 }
